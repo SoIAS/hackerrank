@@ -17,4 +17,7 @@ namespace ipk_warm_up
 	// https://www.hackerrank.com/challenges/jumping-on-the-clouds
 	int jumping_on_clouds(std::vector<int> clouds);
 
+	// https://www.hackerrank.com/challenges/counting-valleys
+	int counting_valleys(int n, std::string str);
+
 }

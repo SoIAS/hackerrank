@@ -47,9 +47,9 @@ namespace ipk_warm_up
 		};
 
 		int min_amount_of_jumps{ 0 };
-		for(size_t i = 0; i < clouds.size() - 1; ++i)
+		for (size_t i = 0; i < clouds.size() - 1; ++i)
 		{
-			if(clouds.size() > i + 2 && clouds[i + 2] == CUMULUS)
+			if (clouds.size() > i + 2 && clouds[i + 2] == CUMULUS)
 			{
 				++i;
 			}
@@ -59,5 +59,70 @@ namespace ipk_warm_up
 		}
 
 		return min_amount_of_jumps;
+	}
+
+	// https://www.hackerrank.com/challenges/counting-valleys
+	int counting_valleys(const int /*n*/, const std::string str)
+	{
+		enum class pos_type
+		{
+			VALLEY,
+			MOUNTAIN,
+			SEA_LEVEL,
+		};
+
+		enum step_type
+		{
+			UPHILL = 'U',
+			DOWNHILL = 'D'
+		};
+
+		if (str.empty())
+		{
+			return 0;
+		}
+
+		const auto get_current_pos_type = [](const int altitude) -> pos_type
+		{
+			if (altitude > 0)
+			{
+				return pos_type::MOUNTAIN;
+			}
+
+			if (altitude < 0)
+			{
+				return pos_type::VALLEY;
+			}
+
+			return pos_type::SEA_LEVEL;
+		};
+
+		int altitude{ str[0] == UPHILL ? 1 : -1 };
+		pos_type current_position{ get_current_pos_type(altitude) };
+
+		int valleys_count{ 0 };
+		if (current_position == pos_type::VALLEY)
+		{
+			++valleys_count;
+		}
+
+		std::for_each(str.begin() + 1, str.end(), [&](const auto direction)
+		{
+			altitude += direction == UPHILL ? 1 : -1;
+
+			if (const auto new_position = get_current_pos_type(altitude);
+				new_position != current_position)
+			{
+				if (new_position == pos_type::VALLEY)
+				{
+					++valleys_count;
+				}
+
+				current_position = new_position;
+			}
+
+		});
+
+		return valleys_count;
 	}
 }

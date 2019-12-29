@@ -47,3 +47,12 @@ TEST(ipk_warm_up, jumping_on_clouds_2)
 
 	ASSERT_EQ(ipk_warm_up::jumping_on_clouds(clouds), 3);
 }
+
+TEST(ipk_warm_up, counting_valleys_1)
+{
+	std::stringstream ss;
+
+	const std::string steps{ "UDDDUDUU" };
+	ASSERT_EQ(ipk_warm_up::counting_valleys(static_cast<int>(steps.size()), steps), 1);
+
+}
