@@ -17,3 +17,19 @@ TEST(ipk_warm_up, sock_merchant_1)
 
 	ASSERT_EQ(ipk_warm_up::sock_merchant(size, socks_colors), 3);
 }
+
+TEST(ipk_warm_up, repeated_string_1)
+{
+	const std::string str{"aba"};
+	const long long n = { 10 };
+
+	ASSERT_EQ(ipk_warm_up::repeated_string(str, n), 7);
+}
+
+TEST(ipk_warm_up, repeated_string_2)
+{
+	const std::string str{ "a" };
+	const long long n = { 1000000000000 };
+
+	ASSERT_EQ(ipk_warm_up::repeated_string(str, n), 1000000000000);
+}
