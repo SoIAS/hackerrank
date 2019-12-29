@@ -14,4 +14,7 @@ namespace ipk_warm_up
 	// https://www.hackerrank.com/challenges/repeated-string
 	long long repeated_string(std::string str, long long n);
 
+	// https://www.hackerrank.com/challenges/jumping-on-the-clouds
+	int jumping_on_clouds(std::vector<int> clouds);
+
 }

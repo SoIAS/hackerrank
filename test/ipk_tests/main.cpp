@@ -33,3 +33,17 @@ TEST(ipk_warm_up, repeated_string_2)
 
 	ASSERT_EQ(ipk_warm_up::repeated_string(str, n), 1000000000000);
 }
+
+TEST(ipk_warm_up, jumping_on_clouds_1)
+{
+	const std::vector<int> clouds{ 0,0,1,0,0,1,0 };
+
+	ASSERT_EQ(ipk_warm_up::jumping_on_clouds(clouds), 4);
+}
+
+TEST(ipk_warm_up, jumping_on_clouds_2)
+{
+	const std::vector<int> clouds{ 0,0,0,0,1,0 };
+
+	ASSERT_EQ(ipk_warm_up::jumping_on_clouds(clouds), 3);
+}

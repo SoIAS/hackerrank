@@ -37,4 +37,27 @@ namespace ipk_warm_up
 		return repeated_count;
 	}
 
+	// https://www.hackerrank.com/challenges/jumping-on-the-clouds
+	int jumping_on_clouds(const std::vector<int> clouds)
+	{
+		enum
+		{
+			CUMULUS,
+			THUNDERHEAD
+		};
+
+		int min_amount_of_jumps{ 0 };
+		for(size_t i = 0; i < clouds.size() - 1; ++i)
+		{
+			if(clouds.size() > i + 2 && clouds[i + 2] == CUMULUS)
+			{
+				++i;
+			}
+
+			// All games are winnable, so we don't have to check for i+1, since if i+2 is not CUMULUS, i+1 will definitely be
+			++min_amount_of_jumps;
+		}
+
+		return min_amount_of_jumps;
+	}
 }
