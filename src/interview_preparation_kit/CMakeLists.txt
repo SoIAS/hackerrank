@@ -6,6 +6,8 @@ set(
 	ipk_srcs
 	ipk_warm_up.cpp
 	ipk_warm_up.h
+	ipk_arrays.cpp
+	ipk_arrays.h
 )
 add_library(ipk_challenges STATIC ${ipk_srcs})
 set_target_properties(ipk_challenges PROPERTIES LINKER_LANGUAGE CXX)

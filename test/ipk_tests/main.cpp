@@ -1,4 +1,5 @@
 #include "src/interview_preparation_kit/ipk_warm_up.h"
+#include "src/interview_preparation_kit/ipk_arrays.h"
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -54,5 +55,17 @@ TEST(ipk_warm_up, counting_valleys_1)
 
 	const std::string steps{ "UDDDUDUU" };
 	ASSERT_EQ(ipk_warm_up::counting_valleys(static_cast<int>(steps.size()), steps), 1);
+}
 
+TEST(ipk_arrays, hourglass_sum_1)
+{
+	std::vector<std::vector<int>> values{
+		{1,1,1,0,0,0},
+		{0,1,0,0,0,0},
+		{1,1,1,0,0,0},
+		{0,0,2,4,4,0},
+		{0,0,0,2,0,0},
+		{0,0,1,2,4,0}};
+
+	ASSERT_EQ(ipk_arrays::hourglass_sum(values), 19);
 }
