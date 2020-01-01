@@ -195,9 +195,3 @@ namespace ipk_arrays
 		return min_swaps;
 	}
 }
-
-// 2 3 4 1 5p
-// 2 3 4 1p 5 
-// 2 3 1p 4 5 // swap completed
-// 2 1 3p 4 5 // swap completed
-// 1 2p 3 4 5 // swap completed
