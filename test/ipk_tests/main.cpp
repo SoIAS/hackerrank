@@ -90,3 +90,18 @@ TEST(ipk_arrays, rot_left_2)
 
 	ASSERT_EQ(ipk_arrays::rot_left(values, offset), result);
 }
+
+
+TEST(ipk_arrays, min_swaps_1)
+{
+	const std::vector<int> values{ 2, 3, 4, 1, 5 };
+
+	ASSERT_EQ(ipk_arrays::minimum_swaps(values), 3);
+}
+
+TEST(ipk_arrays, min_swaps_2)
+{
+	const std::vector<int> values{ 1, 3, 5, 2, 4, 6, 7};
+
+	ASSERT_EQ(ipk_arrays::minimum_swaps(values), 3);
+}

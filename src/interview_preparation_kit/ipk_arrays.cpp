@@ -83,7 +83,7 @@ namespace ipk_arrays
 			return gcd_func(a, b - a);
 		};		
 
-		const size_t gcd = static_cast<size_t>(gcd_func(arr.size(), offset));
+		const size_t gcd = gcd_func(static_cast<int>(arr.size()), offset);
 		for (size_t i = 0; i < gcd; ++i)
 		{
 			size_t current_index{ i };
@@ -103,4 +103,101 @@ namespace ipk_arrays
 
 		return arr;
 	}
+
+	// https://www.hackerrank.com/challenges/minimum-swaps-2
+	// optimized toward speed, will hug twice as memory as opposed to no cache one
+	int minimum_swaps(std::vector<int> arr)
+	{
+		if (arr.empty())
+		{
+			return 0;
+		}
+
+		int min_swaps{};
+		
+		auto sorted_cache{ arr };
+		std::sort(sorted_cache.begin(), sorted_cache.end());
+
+		size_t last_unsorted_index{ arr.size() - 1 };
+		while (last_unsorted_index > 0)
+		{
+			size_t max_element_index{ 0 };
+			size_t back_index{ last_unsorted_index };
+			for (int i = 0; i <= last_unsorted_index; ++i)
+			{
+				if (sorted_cache[last_unsorted_index] == arr[i])
+				{
+					max_element_index = i;
+					break;
+				}
+				else if (sorted_cache[last_unsorted_index] == arr[back_index])
+				{
+					// Gotta deal with ascendingly sorted arrays (to meet hackerrank speed requirement)
+					max_element_index = back_index;
+					break;
+				}
+
+				--back_index;
+			}
+
+			if (max_element_index != last_unsorted_index)
+			{
+				std::swap(arr[max_element_index], arr[last_unsorted_index]);
+				++min_swaps;
+			}
+
+			--last_unsorted_index;
+		}
+
+		return min_swaps;
+	}
+
+	// https://www.hackerrank.com/challenges/minimum-swaps-2
+	/* No sorted cache version, but didn't meet speed requirement for already sorted input */
+	// Todo, there is probably a way to optimize it even more, without using big ass cache
+	int minimum_swaps_no_cache(std::vector<int> arr)
+	{
+		if (arr.empty())
+		{
+			return 0;
+		}
+
+		int min_swaps{};
+
+		size_t last_sorted_index{};
+		size_t last_unsorted_index{ arr.size() - 1 };
+		while (last_unsorted_index > 0)
+		{
+			size_t max_element_index{ 0 };
+			for (int i = 0; i <= last_unsorted_index; ++i)
+			{
+				if (arr[max_element_index] < arr[i])
+				{
+					max_element_index = i;
+
+					// found max possible value
+					if (last_sorted_index > 0 && arr[last_sorted_index] - 1 <= arr[max_element_index])
+					{
+						break;
+					}
+				}
+			}
+
+			if (max_element_index != last_unsorted_index)
+			{
+				std::swap(arr[max_element_index], arr[last_unsorted_index]);
+				++min_swaps;
+			}
+
+			last_sorted_index = last_unsorted_index--;
+		}
+
+		return min_swaps;
+	}
 }
+
+// 2 3 4 1 5p
+// 2 3 4 1p 5 
+// 2 3 1p 4 5 // swap completed
+// 2 1 3p 4 5 // swap completed
+// 1 2p 3 4 5 // swap completed
