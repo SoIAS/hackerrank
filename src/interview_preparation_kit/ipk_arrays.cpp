@@ -194,4 +194,54 @@ namespace ipk_arrays
 
 		return min_swaps;
 	}
+
+	// https://www.hackerrank.com/challenges/new-year-chaos
+	int minimum_bribes(std::vector<int> queue)
+	{
+		constexpr int too_chaotic{ -1 };
+		constexpr int max_bribes{ 2 };
+
+		// Todo, is there a {quick} way to do this without an additional array?
+		std::vector<int> initial_queue{};
+		initial_queue.reserve(queue.size());
+		for (int i = 0; i < queue.size(); ++i)
+		{
+			initial_queue.push_back(i + 1);
+		}
+
+		int min_bribes{};
+		for (size_t i = 0; i < queue.size(); ++i)
+		{
+			if (initial_queue[i] == queue[i])
+			{
+				continue;
+			}
+
+			const auto result_it = std::find(initial_queue.begin() + i, initial_queue.end(), queue[i]);
+			if (result_it == initial_queue.end())
+			{
+				throw std::runtime_error{ "Didn't find expected value" };
+			}
+
+			size_t found_index = std::distance(initial_queue.begin(), result_it);
+			for (size_t bribe = 0; bribe < max_bribes; ++bribe)
+			{
+				if (initial_queue[i] == queue[i])
+				{
+					break;
+				}
+
+				std::swap(initial_queue[found_index], initial_queue[found_index - 1]);
+				--found_index;
+				++min_bribes;
+			}
+
+			if (initial_queue[i] != queue[i])
+			{
+				return too_chaotic;
+			}
+		}
+
+		return min_bribes;
+	}
 }

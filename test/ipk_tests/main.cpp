@@ -105,3 +105,31 @@ TEST(ipk_arrays, min_swaps_2)
 
 	ASSERT_EQ(ipk_arrays::minimum_swaps(values), 3);
 }
+
+TEST(ipk_arrays, minimum_bribes_1)
+{
+	const std::vector<int> values{ 2, 1, 5, 3, 4 };
+
+	ASSERT_EQ(ipk_arrays::minimum_bribes(values), 3);
+}
+
+TEST(ipk_arrays, minimum_bribes_2)
+{
+	const std::vector<int> values{ 2, 5, 1, 3, 4 };
+
+	ASSERT_EQ(ipk_arrays::minimum_bribes(values), -1);
+}
+
+TEST(ipk_arrays, minimum_bribes_3)
+{
+	const std::vector<int> values{ 5, 1, 2, 3, 7, 8, 6, 4 };
+
+	ASSERT_EQ(ipk_arrays::minimum_bribes(values), -1);
+}
+
+TEST(ipk_arrays, minimum_bribes_4)
+{
+	const std::vector<int> values{ 1, 2, 5, 3, 7, 8, 6, 4 };
+
+	ASSERT_EQ(ipk_arrays::minimum_bribes(values), 7);
+}
