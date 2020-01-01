@@ -4,9 +4,11 @@
 #include <cassert>
 #include <limits>
 #include <algorithm>
+#include <functional>
 
 namespace ipk_arrays
 {
+	// https://www.hackerrank.com/challenges/2d-array
 	int hourglass_sum(const std::vector<std::vector<int>> arr)
 	{
 		// as per specification, arr is not empty
@@ -40,5 +42,65 @@ namespace ipk_arrays
 		}
 
 		return max_value;
+	}
+
+	// https://www.hackerrank.com/challenges/ctci-array-left-rotation
+	std::vector<int> rot_left(std::vector<int> arr, int offset)
+	{
+		offset %= arr.size();
+		if (arr.empty() || offset == 0)
+		{
+			return arr;
+		}
+
+		// STL, but that would be too easy
+		// std::rotate(arr.begin(), arr.begin() + offset, arr.end());
+		// return arr;
+
+		const auto get_new_index = [&](const size_t current_index) -> size_t
+		{
+			long long new_index = current_index - offset;
+			if (new_index < 0)
+			{
+				new_index += arr.size();
+			}
+
+			return new_index;
+		};
+
+		const std::function<int(int,int)> gcd_func = [&gcd_func](const int a, const int b) -> int
+		{
+			if (a == b)
+			{
+				return a;
+			}
+
+			if (a > b)
+			{
+				return gcd_func(a - b, b);
+			}
+
+			return gcd_func(a, b - a);
+		};		
+
+		const size_t gcd = static_cast<size_t>(gcd_func(arr.size(), offset));
+		for (size_t i = 0; i < gcd; ++i)
+		{
+			size_t current_index{ i };
+			int temp{ arr[current_index] };
+			do
+			{
+				// todo, optimize the temp (since we are using two temps)?
+				const auto new_index = get_new_index(current_index);
+				int new_temp = arr[new_index];
+				arr[new_index] = temp;
+
+				current_index = new_index;
+				temp = new_temp;
+
+			} while (current_index != i);
+		}
+
+		return arr;
 	}
 }

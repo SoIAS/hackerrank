@@ -1,1 +1,2 @@
 add_subdirectory(interview_preparation_kit)
+add_subdirectory(test_exec)

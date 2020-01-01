@@ -8,4 +8,7 @@ namespace ipk_arrays
 
 	// https://www.hackerrank.com/challenges/2d-array
 	int hourglass_sum(std::vector<std::vector<int>> arr);
+
+	// https://www.hackerrank.com/challenges/ctci-array-left-rotation
+	std::vector<int> rot_left(std::vector<int> arr, int offset);
 }

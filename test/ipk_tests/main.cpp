@@ -4,6 +4,7 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
+// Obviously these are not full tests (lacking bunch of corner cases), but I am simply using it to valid a sample case given by the exercise docs
 
 int main(int argc, char **argv)
 {
@@ -59,7 +60,7 @@ TEST(ipk_warm_up, counting_valleys_1)
 
 TEST(ipk_arrays, hourglass_sum_1)
 {
-	std::vector<std::vector<int>> values{
+	const std::vector<std::vector<int>> values{
 		{1,1,1,0,0,0},
 		{0,1,0,0,0,0},
 		{1,1,1,0,0,0},
@@ -68,4 +69,24 @@ TEST(ipk_arrays, hourglass_sum_1)
 		{0,0,1,2,4,0}};
 
 	ASSERT_EQ(ipk_arrays::hourglass_sum(values), 19);
+}
+
+TEST(ipk_arrays, rot_left_1)
+{
+	const std::vector<int> values{ 41, 73, 89, 7, 10, 1, 59, 58, 84, 77, 77, 97, 58, 1, 86, 58, 26, 10, 86, 51 };
+	const std::vector<int> result{ 77, 97, 58, 1, 86, 58, 26, 10, 86, 51, 41, 73, 89, 7, 10, 1, 59, 58, 84, 77 };
+	
+	constexpr int offset{ 10 };
+	
+	ASSERT_EQ(ipk_arrays::rot_left(values, offset), result);
+}
+
+TEST(ipk_arrays, rot_left_2)
+{
+	const std::vector<int> values{ 1, 2, 3, 4, 5 };
+	const std::vector<int> result{ 4, 5, 1, 2, 3 };
+
+	constexpr int offset{ 3 };
+
+	ASSERT_EQ(ipk_arrays::rot_left(values, offset), result);
 }
