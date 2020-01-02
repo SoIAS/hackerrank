@@ -1,5 +1,6 @@
 #include "src/interview_preparation_kit/ipk_warm_up.h"
 #include "src/interview_preparation_kit/ipk_arrays.h"
+#include "src/interview_preparation_kit/ipk_strings.h"
 
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
@@ -186,4 +187,29 @@ TEST(ipk_arrays, array_manipulation_5)
 		{1, 3, 3} };
 
 	ASSERT_EQ(ipk_arrays::array_manipulation(3, queries), ipk_arrays::array_manipulation_slow_but_correct(3, queries));
+}
+
+TEST(ipk_strings, alternatic_characters_1)
+{
+	ASSERT_EQ(ipk_strings::alternating_characters("AAAA"), 3);
+}
+
+TEST(ipk_strings, alternatic_characters_2)
+{
+	ASSERT_EQ(ipk_strings::alternating_characters("BBBBB"), 4);
+}
+
+TEST(ipk_strings, alternatic_characters_3)
+{
+	ASSERT_EQ(ipk_strings::alternating_characters("ABABABAB"), 0);
+}
+
+TEST(ipk_strings, alternatic_characters_4)
+{
+	ASSERT_EQ(ipk_strings::alternating_characters("BABABA"), 0);
+}
+
+TEST(ipk_strings, alternatic_characters_5)
+{
+	ASSERT_EQ(ipk_strings::alternating_characters("AAABBB"), 4);
 }
