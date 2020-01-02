@@ -213,3 +213,8 @@ TEST(ipk_strings, alternatic_characters_5)
 {
 	ASSERT_EQ(ipk_strings::alternating_characters("AAABBB"), 4);
 }
+
+TEST(ipk_strings, make_anagram_1)
+{
+	ASSERT_EQ(ipk_strings::make_anagram("cde", "abc"), 4);
+}

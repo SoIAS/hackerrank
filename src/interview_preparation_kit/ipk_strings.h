@@ -9,5 +9,7 @@ namespace ipk_strings
 	// https://www.hackerrank.com/challenges/alternating-characters
 	int alternating_characters(std::string str);
 
+	// https://www.hackerrank.com/challenges/ctci-making-anagrams
+	int make_anagram(std::string a, std::string b);
 
 }
