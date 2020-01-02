@@ -21,4 +21,10 @@ namespace ipk_arrays
 
 	// https://www.hackerrank.com/challenges/new-year-chaos
 	int minimum_bribes(std::vector<int> queue);
+
+	// https://www.hackerrank.com/challenges/crush
+	long long array_manipulation(int n, std::vector<std::vector<int>> queries);
+	long long array_manipulation_slow_but_correct(int n, std::vector<std::vector<int>> queries);
+
+
 }

@@ -244,4 +244,92 @@ namespace ipk_arrays
 
 		return min_bribes;
 	}
+
+	// https://www.hackerrank.com/challenges/crush
+	long long array_manipulation(const int n, const std::vector<std::vector<int>> queries)
+	{
+		if (n == 0)
+		{
+			return {};
+		}
+
+		const long long cache_chunk{ std::max(1, static_cast<int>(n*0.0005)) };
+		std::vector<long long> values(n, 0);
+		if (cache_chunk > 1)
+		{
+			std::vector<long long> cache(n / cache_chunk + 1, 0);
+			for (const auto& query : queries)
+			{
+
+				const long long query_min = query[0] - 1; // 502
+				const long long query_max = query[1] - 1; // 2509
+
+				long long current_chunk_begin = query_min; // 502
+				long long chunk_index = current_chunk_begin / cache_chunk; // 502 / 1000 = 0
+				while (current_chunk_begin <= query_max)
+				{
+					const long long chuck_ceiling_value = std::min(query_max + 1, chunk_index * cache_chunk + cache_chunk);//chunk_index * cache_chunk + cache_chunk - std::min(chunk_index, 1LL); // 0 * 1000 + 999, 2509 = 1000
+					const long long chunk_value = chuck_ceiling_value - current_chunk_begin;
+
+					if (chunk_value != cache_chunk)
+					{
+						const auto modifier = query[2];
+						std::transform(values.begin() + current_chunk_begin, values.begin() + current_chunk_begin + chunk_value, values.begin() + current_chunk_begin,
+							[modifier](long long previous_value) { return previous_value + modifier; });
+					}
+					else
+					{
+						cache[chunk_index] += query[2];
+					}
+
+					current_chunk_begin = (chunk_index + 1) * cache_chunk;
+					++chunk_index;
+				}
+			}
+
+			for (size_t chunk = 0; chunk < cache.size(); ++chunk)
+			{
+				if (cache[chunk] == 0)
+				{
+					continue;
+				}
+
+				const auto offset = chunk * cache_chunk;
+				const auto end_offset = std::min(chunk * cache_chunk + cache_chunk, static_cast<unsigned long long>(values.size()));
+				const auto modifier = cache[chunk];
+				std::transform(values.begin() + offset, values.begin() + end_offset, values.begin() + offset,
+					[modifier](long long previous_value) { return previous_value + modifier; });
+			}
+		}
+		else
+		{
+			for (const auto& query : queries)
+			{
+				const auto& modifier = query[2];
+				std::transform(values.begin() + query[0] - 1, values.begin() + query[1], values.begin() + query[0] - 1,
+					[modifier](long long previous_value) { return previous_value + modifier; });
+			}
+		}
+
+		return *std::max_element(values.begin(), values.end());
+	}
+
+	// https://www.hackerrank.com/challenges/crush
+	long long array_manipulation_slow_but_correct(const int n, const std::vector<std::vector<int>> queries)
+	{
+		if (n == 0)
+		{
+			return {};
+		}
+
+		std::vector<long long> values(n, 0);
+		for (const auto& query : queries)
+		{
+			const auto& modifier = query[2];
+			std::transform(values.begin() + query[0] - 1, values.begin() + query[1], values.begin() + query[0] - 1,
+				[modifier](long long previous_value) { return previous_value + modifier; });
+		}
+
+		return *std::max_element(values.begin(), values.end());
+	}
 }

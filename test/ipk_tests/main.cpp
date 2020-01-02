@@ -133,3 +133,57 @@ TEST(ipk_arrays, minimum_bribes_4)
 
 	ASSERT_EQ(ipk_arrays::minimum_bribes(values), 7);
 }
+
+TEST(ipk_arrays, array_manipulation_1)
+{
+	const std::vector<std::vector<int>> queries{ {1, 2, 100}, { 2, 5, 100}, {3, 4, 100} };
+
+	ASSERT_EQ(ipk_arrays::array_manipulation(5, queries), 200);
+}
+
+TEST(ipk_arrays, array_manipulation_2)
+{
+	const std::vector<std::vector<int>> queries{ {2, 3, 603}, {1, 1, 286}, {4, 4, 882} };
+
+	ASSERT_EQ(ipk_arrays::array_manipulation(4, queries), 882);
+}
+
+TEST(ipk_arrays, array_manipulation_3)
+{
+	const std::vector<std::vector<int>> queries{
+		{1, 1, 5},
+		{2, 5, 5},
+		{2, 8, 5},
+		{1, 2, 5},
+		{8, 9, 5},
+		{4, 6, 5} };
+
+	ASSERT_EQ(ipk_arrays::array_manipulation(10, queries), ipk_arrays::array_manipulation_slow_but_correct(10, queries));
+}
+
+TEST(ipk_arrays, array_manipulation_4)
+{
+	const std::vector<std::vector<int>> queries{
+		{5, 8, 4},
+		{7, 9, 9},
+		{4, 5, 9},
+		{4, 8, 5},
+		{1, 3, 1},
+		{8, 10, 4},
+		{5, 6, 6},
+		{4, 5, 5},
+		{3, 8, 1},
+		{3, 8, 2} };
+
+	ASSERT_EQ(ipk_arrays::array_manipulation(10, queries), ipk_arrays::array_manipulation_slow_but_correct(10, queries));
+}
+
+TEST(ipk_arrays, array_manipulation_5)
+{
+	const std::vector<std::vector<int>> queries{
+		{3, 3, 1},
+		{2, 3, 2},
+		{1, 3, 3} };
+
+	ASSERT_EQ(ipk_arrays::array_manipulation(3, queries), ipk_arrays::array_manipulation_slow_but_correct(3, queries));
+}
