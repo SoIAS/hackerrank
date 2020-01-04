@@ -238,3 +238,18 @@ TEST(ipk_strings, special_string_again_4)
 {
 	ASSERT_EQ(ipk_strings::special_string_again(7, "hggh"), 5);
 }
+
+TEST(ipk_strings, sherlock_and_the_valid_string_1)
+{
+	ASSERT_EQ(ipk_strings::sherlock_and_the_valid_string("aabbcd"), "NO");
+}
+
+TEST(ipk_strings, sherlock_and_the_valid_string_2)
+{
+	ASSERT_EQ(ipk_strings::sherlock_and_the_valid_string("aabbccddeefghi"), "NO");
+}
+
+TEST(ipk_strings, sherlock_and_the_valid_string_3)
+{
+	ASSERT_EQ(ipk_strings::sherlock_and_the_valid_string("abcdefghhgfedecba"), "YES");
+}

@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <cctype>
 #include <array>
+#include <numeric>
+#include <vector>
 
 namespace ipk_strings
 {
@@ -54,7 +56,7 @@ namespace ipk_strings
 
 		cache_letters_in_string(a, a_cache);
 		cache_letters_in_string(b, b_cache);
-	
+
 		int min_deletions{};
 		for (size_t i = 0; i < cache_size; ++i)
 		{
@@ -72,7 +74,7 @@ namespace ipk_strings
 		for (size_t left_index = 0; left_index < str.size(); ++left_index)
 		{
 			const auto first_letter = str[left_index];
-			
+
 			size_t counter{ 1 };
 			bool is_incrementing{ true };
 
@@ -109,5 +111,54 @@ namespace ipk_strings
 		}
 
 		return special_sub_strings;
+	}
+
+	// https://www.hackerrank.com/challenges/sherlock-and-valid-string
+	std::string sherlock_and_the_valid_string(const std::string str)
+	{
+		const auto count_letter_occurences = [](const std::string& str, std::vector<int>& occurences)
+		{
+			constexpr int characters_count = 'z' - 'a' + 1;
+
+			occurences.resize(characters_count, 0);
+			for (const auto character : str)
+			{
+				++occurences[character - 'a'];
+			}
+		};
+
+		// Could use std::array, but we will be removing 0-value elements for simplicity, so..
+		std::vector<int> occurences;
+		count_letter_occurences(str, occurences);
+
+		std::sort(occurences.begin(), occurences.end(), std::greater<>{});
+		occurences.erase(std::find(occurences.begin(), occurences.end(), 0), occurences.end());
+
+		bool was_character_deleted{ false };
+		int reference_value{ *std::find_if(occurences.begin(), occurences.end(), [](const auto value) { return value > 0; }) };
+		for (size_t i = 0; i < occurences.size(); ++i)
+		{
+			const auto difference = std::abs(reference_value - occurences[i]);
+			if (difference == 0)
+			{
+				continue;
+			}
+
+			// Last one, we don't care for it's value, just that no character was deleted so far
+			if (!was_character_deleted && i == occurences.size() - 1)
+			{
+				break;
+			}
+
+			if (difference > 1 || was_character_deleted || (occurences[i] < reference_value && i > 1))
+			{
+				return "NO";
+			}
+
+			was_character_deleted = true;
+			reference_value = std::max(reference_value, occurences[i]) - 1;
+		}
+
+		return "YES";
 	}
 }

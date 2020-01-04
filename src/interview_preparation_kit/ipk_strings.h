@@ -14,4 +14,7 @@ namespace ipk_strings
 
 	// https://www.hackerrank.com/challenges/special-palindrome-again
 	int special_string_again(int n, std::string str);
+
+	// https://www.hackerrank.com/challenges/sherlock-and-valid-string
+	std::string sherlock_and_the_valid_string(std::string str);
 }
