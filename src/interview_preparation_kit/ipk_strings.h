@@ -12,4 +12,6 @@ namespace ipk_strings
 	// https://www.hackerrank.com/challenges/ctci-making-anagrams
 	int make_anagram(std::string a, std::string b);
 
+	// https://www.hackerrank.com/challenges/special-palindrome-again
+	int special_string_again(int n, std::string str);
 }

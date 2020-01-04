@@ -218,3 +218,23 @@ TEST(ipk_strings, make_anagram_1)
 {
 	ASSERT_EQ(ipk_strings::make_anagram("cde", "abc"), 4);
 }
+
+TEST(ipk_strings, special_string_again_1)
+{
+	ASSERT_EQ(ipk_strings::special_string_again(5, "asasd"), 7);
+}
+
+TEST(ipk_strings, special_string_again_2)
+{
+	ASSERT_EQ(ipk_strings::special_string_again(4, "aaaa"), 10);
+}
+
+TEST(ipk_strings, special_string_again_3)
+{
+	ASSERT_EQ(ipk_strings::special_string_again(7, "abcbaba"), 10);
+}
+
+TEST(ipk_strings, special_string_again_4)
+{
+	ASSERT_EQ(ipk_strings::special_string_again(7, "hggh"), 5);
+}

@@ -63,4 +63,51 @@ namespace ipk_strings
 
 		return min_deletions;
 	}
+
+	// https://www.hackerrank.com/challenges/special-palindrome-again
+	int special_string_again(const int /*n*/, const std::string str)
+	{
+		// TODO, cleanup, maybe rename some variables
+		int special_sub_strings{ static_cast<int>(str.size()) };
+		for (size_t left_index = 0; left_index < str.size(); ++left_index)
+		{
+			const auto first_letter = str[left_index];
+			
+			size_t counter{ 1 };
+			bool is_incrementing{ true };
+
+			for (size_t right_index = left_index + 1; right_index < str.size() && counter != 0; ++right_index)
+			{
+				if (str[right_index] == first_letter)
+				{
+					// the same character substrings
+					if (is_incrementing)
+					{
+						++special_sub_strings;
+						++counter;
+					}
+					else
+					{
+						--counter;
+					}
+				}
+				else
+				{
+					if (!is_incrementing)
+					{
+						break;
+					}
+
+					is_incrementing = false;
+				}
+			}
+
+			if (counter == 0)
+			{
+				++special_sub_strings;
+			}
+		}
+
+		return special_sub_strings;
+	}
 }
