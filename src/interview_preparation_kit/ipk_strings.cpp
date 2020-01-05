@@ -116,26 +116,27 @@ namespace ipk_strings
 	// https://www.hackerrank.com/challenges/sherlock-and-valid-string
 	std::string sherlock_and_the_valid_string(const std::string str)
 	{
-		const auto count_letter_occurences = [](const std::string& str, std::vector<int>& occurences)
+		const auto count_letter_occurences = [](const std::string& str)
 		{
 			constexpr int characters_count = 'z' - 'a' + 1;
 
-			occurences.resize(characters_count, 0);
+			std::vector<int> occurences(characters_count, 0);
 			for (const auto character : str)
 			{
-				++occurences[character - 'a'];
+				++occurences[std::tolower(character) - 'a'];
 			}
+
+			return occurences;
 		};
 
 		// Could use std::array, but we will be removing 0-value elements for simplicity, so..
-		std::vector<int> occurences;
-		count_letter_occurences(str, occurences);
+		std::vector<int> occurences = count_letter_occurences(str);
 
 		std::sort(occurences.begin(), occurences.end(), std::greater<>{});
 		occurences.erase(std::find(occurences.begin(), occurences.end(), 0), occurences.end());
 
 		bool was_character_deleted{ false };
-		int reference_value{ *std::find_if(occurences.begin(), occurences.end(), [](const auto value) { return value > 0; }) };
+		int reference_value{ occurences[0] };
 		for (size_t i = 0; i < occurences.size(); ++i)
 		{
 			const auto difference = std::abs(reference_value - occurences[i]);
